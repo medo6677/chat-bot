@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabaseAdmin'
+import { checkRateLimit } from '@/lib/rateLimit'
 
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions'
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions'
@@ -145,6 +146,16 @@ export async function POST(request: Request) {
       )
     }
 
+    // Rate Limiting (10 requests per minute per IP)
+    const ip = request.headers.get('x-forwarded-for') || '127.0.0.1'
+    const rateLimit = checkRateLimit(ip, 10, 60000)
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        { error: 'تم تجاوز الحد المسموح به للرسائل. يرجى الانتظار قليلاً.' },
+        { status: 429 }
+      )
+    }
+
     // 1. Fetch settings
     const { data: settings, error: settingsError } = await supabaseAdmin
       .from('settings')
@@ -187,12 +198,17 @@ export async function POST(request: Request) {
       )
     }
 
-    // 3. Build study content
+    // 3. Build study content (Hard limit to avoid Context Window Overflow)
     let studyContent = ''
     if (contentFiles && contentFiles.length > 0) {
       studyContent = contentFiles
         .map((f) => `## ${f.title}\n\n${f.content_md}`)
         .join('\n\n---\n\n')
+      
+      // Limit to max 30,000 characters
+      if (studyContent.length > 30000) {
+        studyContent = studyContent.substring(0, 30000) + '\n\n[تم اقتطاع باقي المحتوى لتجاوز الحد الأقصى]'
+      }
     }
 
     // 4. Build system prompt

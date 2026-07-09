@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { verifyAdminApi } from '@/lib/auth'
 import { supabaseAdmin } from '@/lib/supabaseAdmin'
 
 // GET all messages for a conversation
@@ -6,6 +7,9 @@ export async function GET(
   _request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!(await verifyAdminApi())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
+
   const { id } = await params
 
   const { data, error } = await supabaseAdmin

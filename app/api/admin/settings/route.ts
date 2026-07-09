@@ -1,8 +1,12 @@
 import { NextResponse } from 'next/server'
+import { verifyAdminApi } from '@/lib/auth'
 import { supabaseAdmin } from '@/lib/supabaseAdmin'
 
 // GET the settings row
 export async function GET() {
+  if (!(await verifyAdminApi())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
+
   const { data, error } = await supabaseAdmin
     .from('settings')
     .select('*')
@@ -27,6 +31,9 @@ export async function GET() {
 
 // PUT update settings
 export async function PUT(request: Request) {
+  if (!(await verifyAdminApi())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
+
   const body = await request.json()
   const { openrouter_api_key, model_name, system_prompt, id } = body
 
