@@ -1,20 +1,10 @@
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
-import { checkRateLimit } from '@/lib/rateLimit'
 
 export async function POST(request: Request) {
   try {
     const body = await request.json()
     const { password } = body
-
-    const ip = request.headers.get('x-forwarded-for') || '127.0.0.1'
-    const rateLimit = checkRateLimit(ip + '_login', 5, 60000)
-    if (!rateLimit.success) {
-      return NextResponse.json(
-        { error: 'محاولات دخول كثيرة، يرجى المحاولة لاحقاً.' },
-        { status: 429 }
-      )
-    }
 
     if (!password || typeof password !== 'string') {
       return NextResponse.json(

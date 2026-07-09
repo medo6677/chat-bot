@@ -1,11 +1,8 @@
 import { NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabaseAdmin'
-import { verifyAdminApi } from '@/lib/auth'
 
 // GET content files for a subject
 export async function GET(request: Request) {
-  if (!(await verifyAdminApi())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-
   const { searchParams } = new URL(request.url)
   const subjectId = searchParams.get('subject_id')
 
@@ -28,8 +25,6 @@ export async function GET(request: Request) {
 
 // POST create a content file
 export async function POST(request: Request) {
-  if (!(await verifyAdminApi())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-
   const body = await request.json()
   const { subject_id, title, content_md } = body
 

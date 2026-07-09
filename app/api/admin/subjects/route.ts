@@ -1,11 +1,8 @@
 import { NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabaseAdmin'
-import { verifyAdminApi } from '@/lib/auth'
 
 // GET all subjects with content file count
 export async function GET() {
-  if (!(await verifyAdminApi())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-
   const { data, error } = await supabaseAdmin
     .from('subjects')
     .select(`
@@ -23,8 +20,6 @@ export async function GET() {
 
 // POST create a subject
 export async function POST(request: Request) {
-  if (!(await verifyAdminApi())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-
   const body = await request.json()
   const { name, description, display_order } = body
 
