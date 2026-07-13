@@ -8,7 +8,22 @@ export async function GET(request: Request) {
 
   // ─── Mode 2: fetch messages for a specific conversation ───
   if (conversationId) {
+    if (!sessionId) {
+      return NextResponse.json({ error: 'session_id required' }, { status: 400 })
+    }
+
     try {
+      // Security: Verify the conversation belongs to this session
+      const { data: conv } = await supabaseAdmin
+        .from('conversations')
+        .select('session_id')
+        .eq('id', conversationId)
+        .single()
+
+      if (!conv || conv.session_id !== sessionId) {
+        return NextResponse.json({ error: 'Unauthorized access to conversation' }, { status: 403 })
+      }
+
       const { data: messages, error } = await supabaseAdmin
         .from('messages')
         .select('id, role, content, created_at')
