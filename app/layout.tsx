@@ -20,21 +20,29 @@ export const metadata: Metadata = {
   keywords: ['ثينكي', 'مساعد ذكي', 'دراسة', 'تعليم', 'chatbot', 'AI'],
   authors: [{ name: 'Thinky Team' }],
   creator: 'Thinky',
-  metadataBase: new URL('https://chat-bot-xi-two.vercel.app'),
+  metadataBase: new URL('https://thinky.app'), // Update with the actual production URL
   openGraph: {
     title: 'ثينكي — المساعد الدراسي الذكي',
-    description: 'اسأل ثينكي أي سؤال وسيجاوبك من محتوى مادتك الدراسية فقط',
+    description: 'منصة ثينكي التعليمية: اسأل الذكاء الاصطناعي أي سؤال وسيجاوبك من محتوى مادتك الدراسية فقط بدقة عالية وبدون تشتيت.',
     locale: 'ar_EG',
     type: 'website',
+    siteName: 'ثينكي',
   },
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     title: 'ثينكي — المساعد الدراسي الذكي',
-    description: 'اسأل ثينكي أي سؤال وسيجاوبك من محتوى مادتك الدراسية فقط',
+    description: 'منصة ثينكي التعليمية: اسأل الذكاء الاصطناعي أي سؤال وسيجاوبك من محتوى مادتك الدراسية فقط بدقة عالية.',
   },
   robots: {
-    index: false,
-    follow: false,
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 }
 
