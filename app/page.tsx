@@ -40,7 +40,8 @@ export default function HomePage() {
 
           <h1 className="text-4xl sm:text-5xl font-bold mb-3 tracking-tight" style={{ color: 'var(--text-primary)' }}>ثينكي</h1>
           <p className="text-base sm:text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-            مساعدك الذكي للدراسة — يجيب على أسئلتك بناءً على محتوى المادة فقط
+            مساعدك الذكي للدراسة - يجيب على أسئلتك  - يقدم لك  شرح و حلول و مراجعات 
+
           </p>
         </div>
 
