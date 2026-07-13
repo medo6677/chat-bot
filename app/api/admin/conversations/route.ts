@@ -32,3 +32,20 @@ export async function GET(request: Request) {
 
   return NextResponse.json(data)
 }
+
+// DELETE all conversations
+export async function DELETE(request: Request) {
+  if (!(await verifyAdminApi())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
+  // Delete all messages to avoid foreign key issues
+  await supabaseAdmin.from('messages').delete().not('id', 'is', null)
+
+  // Delete all conversations
+  const { error } = await supabaseAdmin.from('conversations').delete().not('id', 'is', null)
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
+
+  return NextResponse.json({ success: true })
+}

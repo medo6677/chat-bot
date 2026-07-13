@@ -1,8 +1,55 @@
 @import "tailwindcss";
 
+/* ─── Base Design Tokens ─── */
 :root {
   --background: #ffffff;
   --foreground: #171717;
+}
+
+/* ─── Dark Theme (default) ─── */
+[data-theme="dark"] {
+  --bg-base:       #020817;
+  --bg-surface:    #0f172a;
+  --bg-elevated:   #1e293b;
+  --bg-hover:      #334155;
+  --border:        #1e293b;
+  --border-subtle: #334155;
+  --text-primary:  #f1f5f9;
+  --text-secondary:#94a3b8;
+  --text-muted:    #64748b;
+  --user-bubble:   #1e293b;
+  --user-text:     #f1f5f9;
+}
+
+/* ─── Light Theme ─── */
+[data-theme="light"] {
+  --bg-base:       #f8fafc;
+  --bg-surface:    #ffffff;
+  --bg-elevated:   #f1f5f9;
+  --bg-hover:      #e2e8f0;
+  --border:        #e2e8f0;
+  --border-subtle: #cbd5e1;
+  --text-primary:  #0f172a;
+  --text-secondary:#475569;
+  --text-muted:    #94a3b8;
+  --user-bubble:   #e2e8f0;
+  --user-text:     #0f172a;
+}
+
+/* ─── Toggle Button ─── */
+[data-theme="dark"] .theme-toggle-btn {
+  color: #facc15;
+  background: rgba(250, 204, 21, 0.1);
+}
+[data-theme="dark"] .theme-toggle-btn:hover {
+  background: rgba(250, 204, 21, 0.2);
+}
+[data-theme="light"] .theme-toggle-btn {
+  color: #6d28d9;
+  background: rgba(109, 40, 217, 0.08);
+}
+[data-theme="light"] .theme-toggle-btn:hover {
+  background: rgba(109, 40, 217, 0.15);
 }
 
 @theme inline {
@@ -11,15 +58,9 @@
   --font-sans: var(--font-cairo);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg-base);
+  color: var(--text-primary);
   font-family: var(--font-cairo), 'Cairo', Arial, sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
+import ThemeToggle from '@/app/ThemeToggle'
 
 const navItems = [
   {
@@ -60,16 +61,19 @@ export default function AdminSidebar() {
   return (
     <>
       {/* Mobile Top Bar */}
-      <div className="sm:hidden flex items-center justify-between bg-slate-900 border-b border-slate-700 px-4 py-3 shrink-0">
+      <div
+        className="sm:hidden flex items-center justify-between border-b px-4 py-3 shrink-0"
+        style={{ background: 'var(--bg-surface)', borderColor: 'var(--border)' }}
+      >
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-purple-600 flex items-center justify-center shadow-lg">
             <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
             </svg>
           </div>
-          <span className="font-bold text-white">لوحة التحكم</span>
+          <span className="font-bold" style={{ color: 'var(--text-primary)' }}>لوحة التحكم</span>
         </div>
-        <button onClick={() => setIsOpen(true)} className="p-2 text-slate-300 hover:text-white">
+        <button onClick={() => setIsOpen(true)} className="p-2 transition-colors" style={{ color: 'var(--text-secondary)' }}>
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
@@ -86,29 +90,34 @@ export default function AdminSidebar() {
 
       {/* Sidebar Content */}
       <aside className={`
-        fixed inset-y-0 right-0 z-50 w-64 bg-slate-900 border-l border-slate-700 flex flex-col transform transition-transform duration-300 ease-in-out
+        fixed inset-y-0 right-0 z-50 w-64 border-l flex flex-col transform transition-transform duration-300 ease-in-out
         sm:relative sm:translate-x-0
         ${isOpen ? 'translate-x-0' : 'translate-x-full'}
-      `}>
+      `}
+      style={{ background: 'var(--bg-surface)', borderColor: 'var(--border)' }}>
         {/* Logo (Desktop only) */}
-        <div className="hidden sm:block p-6 border-b border-slate-700">
+        <div className="hidden sm:block p-6 border-b" style={{ borderColor: 'var(--border)' }}>
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-purple-600 flex items-center justify-center shadow-lg shadow-purple-500/30">
               <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
               </svg>
             </div>
-            <div>
-              <p className="text-white font-bold text-lg leading-tight">ثينكي</p>
-              <p className="text-slate-400 text-xs">لوحة التحكم</p>
+            <div className="flex-1">
+              <p className="font-bold text-lg leading-tight" style={{ color: 'var(--text-primary)' }}>ثينكي</p>
+              <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>لوحة التحكم</p>
             </div>
+            <ThemeToggle />
           </div>
         </div>
 
         {/* Mobile Sidebar Close Button */}
-        <div className="sm:hidden flex items-center justify-between p-4 border-b border-slate-700">
-          <span className="font-bold text-white">القائمة</span>
-          <button onClick={closeSidebar} className="p-2 text-slate-400 hover:text-white">
+        <div className="sm:hidden flex items-center justify-between p-4 border-b" style={{ borderColor: 'var(--border)' }}>
+          <div className="flex items-center gap-2">
+            <span className="font-bold" style={{ color: 'var(--text-primary)' }}>القائمة</span>
+            <ThemeToggle />
+          </div>
+          <button onClick={closeSidebar} className="p-2 transition-colors" style={{ color: 'var(--text-secondary)' }}>
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -127,8 +136,9 @@ export default function AdminSidebar() {
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                   isActive
                     ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/20'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                    : 'hover:bg-slate-800/10'
                 }`}
+                style={!isActive ? { color: 'var(--text-secondary)' } : {}}
               >
                 {item.icon}
                 {item.label}
@@ -138,11 +148,12 @@ export default function AdminSidebar() {
         </nav>
 
         {/* Logout */}
-        <div className="p-4 border-t border-slate-700 shrink-0">
+        <div className="p-4 border-t shrink-0" style={{ borderColor: 'var(--border)' }}>
           <button
             onClick={handleLogout}
             id="admin-logout-btn"
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition-all duration-200"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium hover:text-red-400 hover:bg-red-500/10 transition-all duration-200"
+            style={{ color: 'var(--text-secondary)' }}
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />

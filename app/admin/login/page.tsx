@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
+import ThemeToggle from '@/app/ThemeToggle'
 
 export default function AdminLoginPage() {
   const router = useRouter()
@@ -37,7 +38,12 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-900 via-purple-950 to-slate-900 flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4 relative" style={{ background: 'var(--bg-base)' }}>
+      {/* Theme Toggle Button — top left */}
+      <div className="fixed top-4 left-4 z-50">
+        <ThemeToggle />
+      </div>
+      
       <div className="w-full max-w-md">
         {/* Logo / Header */}
         <div className="text-center mb-8">
@@ -56,13 +62,13 @@ export default function AdminLoginPage() {
               />
             </svg>
           </div>
-          <h1 className="text-3xl font-bold text-white">ثينكي</h1>
-          <p className="text-purple-300 mt-1 text-sm">لوحة تحكم المسؤول</p>
+          <h1 className="text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>ثينكي</h1>
+          <p className="mt-1 text-sm" style={{ color: 'var(--text-secondary)' }}>لوحة تحكم المسؤول</p>
         </div>
 
         {/* Card */}
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 shadow-xl">
-          <h2 className="text-xl font-semibold text-white mb-6 text-center">
+        <div className="border rounded-2xl p-8 shadow-xl" style={{ background: 'var(--bg-surface)', borderColor: 'var(--border)' }}>
+          <h2 className="text-xl font-semibold mb-6 text-center" style={{ color: 'var(--text-primary)' }}>
             تسجيل الدخول
           </h2>
 
@@ -70,7 +76,8 @@ export default function AdminLoginPage() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-purple-200 mb-2"
+                className="block text-sm font-medium mb-2"
+                style={{ color: 'var(--text-secondary)' }}
               >
                 كلمة المرور
               </label>
@@ -82,14 +89,19 @@ export default function AdminLoginPage() {
                 placeholder="أدخل كلمة المرور"
                 required
                 autoComplete="current-password"
-                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                className="w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                style={{
+                  background: 'var(--bg-elevated)',
+                  color: 'var(--text-primary)',
+                  borderColor: 'var(--border-subtle)',
+                }}
               />
             </div>
 
             {error && (
               <div
                 role="alert"
-                className="flex items-center gap-2 bg-red-500/20 border border-red-500/30 text-red-300 rounded-xl px-4 py-3 text-sm"
+                className="flex items-center gap-2 bg-red-500/10 border border-red-500/20 text-red-500 rounded-xl px-4 py-3 text-sm"
               >
                 <svg
                   className="w-4 h-4 shrink-0"
@@ -142,7 +154,7 @@ export default function AdminLoginPage() {
           </form>
         </div>
 
-        <p className="text-center text-white/20 text-xs mt-6">
+        <p className="text-center text-xs mt-6" style={{ color: 'var(--text-muted)' }}>
           منصة ثينكي التعليمية — لوحة المسؤول
         </p>
       </div>

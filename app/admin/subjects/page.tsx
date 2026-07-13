@@ -115,8 +115,8 @@ export default function SubjectsPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-white">المواد الدراسية</h1>
-          <p className="text-slate-400 text-sm mt-1">إدارة المواد والموضوعات الدراسية</p>
+          <h1 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>المواد الدراسية</h1>
+          <p className="text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>إدارة المواد والموضوعات الدراسية</p>
         </div>
         <button
           id="add-subject-btn"
@@ -131,47 +131,62 @@ export default function SubjectsPage() {
       </div>
 
       {error && (
-        <div className="mb-4 bg-red-500/20 border border-red-500/30 text-red-300 rounded-xl px-4 py-3 text-sm">
+        <div className="mb-4 bg-red-500/10 border border-red-500/20 text-red-500 rounded-xl px-4 py-3 text-sm">
           {error}
         </div>
       )}
 
       {/* Add/Edit Form */}
       {showForm && (
-        <div className="mb-6 bg-slate-800 border border-slate-700 rounded-2xl p-6">
-          <h2 className="text-lg font-semibold text-white mb-4">
+        <div className="mb-6 border rounded-2xl p-6" style={{ background: 'var(--bg-surface)', borderColor: 'var(--border)' }}>
+          <h2 className="text-lg font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>
             {editingId ? 'تعديل المادة' : 'إضافة مادة جديدة'}
           </h2>
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-slate-300 mb-1">اسم المادة *</label>
+              <label className="block text-sm font-medium mb-1" style={{ color: 'var(--text-secondary)' }}>اسم المادة *</label>
               <input
                 type="text"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 placeholder="مثال: رياضيات — الفصل الأول"
                 required
-                className="w-full px-4 py-2.5 bg-slate-700 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                style={{
+                  background: 'var(--bg-elevated)',
+                  color: 'var(--text-primary)',
+                  borderColor: 'var(--border-subtle)',
+                }}
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-slate-300 mb-1">الوصف</label>
+              <label className="block text-sm font-medium mb-1" style={{ color: 'var(--text-secondary)' }}>الوصف</label>
               <input
                 type="text"
                 value={form.description}
                 onChange={(e) => setForm({ ...form, description: e.target.value })}
                 placeholder="وصف مختصر للمادة (اختياري)"
-                className="w-full px-4 py-2.5 bg-slate-700 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                style={{
+                  background: 'var(--bg-elevated)',
+                  color: 'var(--text-primary)',
+                  borderColor: 'var(--border-subtle)',
+                }}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-300 mb-1">ترتيب العرض</label>
+              <label className="block text-sm font-medium mb-1" style={{ color: 'var(--text-secondary)' }}>ترتيب العرض</label>
               <input
                 type="number"
                 value={form.display_order}
                 onChange={(e) => setForm({ ...form, display_order: e.target.value })}
                 min="0"
-                className="w-full px-4 py-2.5 bg-slate-700 border border-slate-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                style={{
+                  background: 'var(--bg-elevated)',
+                  color: 'var(--text-primary)',
+                  borderColor: 'var(--border-subtle)',
+                }}
               />
             </div>
             <div className="flex items-end gap-3">
@@ -185,7 +200,8 @@ export default function SubjectsPage() {
               <button
                 type="button"
                 onClick={() => { setShowForm(false); setEditingId(null) }}
-                className="px-6 py-2.5 bg-slate-700 hover:bg-slate-600 text-slate-300 font-semibold rounded-xl transition-all duration-200"
+                className="px-6 py-2.5 font-semibold rounded-xl transition-all duration-200"
+                style={{ background: 'var(--bg-elevated)', color: 'var(--text-secondary)' }}
               >
                 إلغاء
               </button>
@@ -196,19 +212,19 @@ export default function SubjectsPage() {
 
       {/* Table */}
       {loading ? (
-        <div className="text-center py-16 text-slate-400">جارٍ التحميل...</div>
+        <div className="text-center py-16" style={{ color: 'var(--text-secondary)' }}>جارٍ التحميل...</div>
       ) : subjects.length === 0 ? (
-        <div className="text-center py-16 text-slate-400">
+        <div className="text-center py-16" style={{ color: 'var(--text-secondary)' }}>
           <svg className="w-12 h-12 mx-auto mb-3 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
           </svg>
           لا توجد مواد بعد. ابدأ بإضافة مادة جديدة.
         </div>
       ) : (
-        <div className="bg-slate-800 border border-slate-700 rounded-2xl overflow-x-auto">
+        <div className="border rounded-2xl overflow-x-auto" style={{ background: 'var(--bg-surface)', borderColor: 'var(--border)' }}>
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-slate-700 text-slate-400 text-right">
+              <tr className="border-b text-right" style={{ borderColor: 'var(--border)', color: 'var(--text-secondary)' }}>
                 <th className="px-6 py-4 font-medium">المادة</th>
                 <th className="px-6 py-4 font-medium">الترتيب</th>
                 <th className="px-6 py-4 font-medium">الملفات</th>
@@ -220,17 +236,18 @@ export default function SubjectsPage() {
               {subjects.map((subject) => (
                 <tr
                   key={subject.id}
-                  className="border-b border-slate-700/50 hover:bg-slate-700/30 transition-colors"
+                  className="border-b transition-colors"
+                  style={{ borderColor: 'var(--border)' }}
                 >
                   <td className="px-6 py-4">
-                    <div className="font-medium text-white">{subject.name}</div>
+                    <div className="font-medium" style={{ color: 'var(--text-primary)' }}>{subject.name}</div>
                     {subject.description && (
-                      <div className="text-slate-400 text-xs mt-0.5">{subject.description}</div>
+                      <div className="text-xs mt-0.5" style={{ color: 'var(--text-muted)' }}>{subject.description}</div>
                     )}
                   </td>
-                  <td className="px-6 py-4 text-slate-300">{subject.display_order}</td>
+                  <td className="px-6 py-4" style={{ color: 'var(--text-secondary)' }}>{subject.display_order}</td>
                   <td className="px-6 py-4">
-                    <span className="bg-blue-500/20 text-blue-300 text-xs px-2.5 py-1 rounded-full">
+                    <span className="bg-blue-500/10 text-blue-500 text-xs px-2.5 py-1 rounded-full">
                       {subject.content_files?.[0]?.count ?? 0} ملف
                     </span>
                   </td>
@@ -239,7 +256,7 @@ export default function SubjectsPage() {
                       onClick={() => handleToggleActive(subject)}
                       id={`toggle-subject-${subject.id}`}
                       className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${
-                        subject.is_active ? 'bg-purple-600' : 'bg-slate-600'
+                        subject.is_active ? 'bg-purple-600' : 'bg-gray-400'
                       }`}
                     >
                       <span
@@ -254,8 +271,11 @@ export default function SubjectsPage() {
                       <button
                         onClick={() => openEdit(subject)}
                         id={`edit-subject-${subject.id}`}
-                        className="p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition-all"
+                        className="p-2 rounded-lg transition-all"
+                        style={{ color: 'var(--text-secondary)' }}
                         title="تعديل"
+                        onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text-primary)'; e.currentTarget.style.background = 'var(--bg-elevated)' }}
+                        onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-secondary)'; e.currentTarget.style.background = 'transparent' }}
                       >
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -264,7 +284,8 @@ export default function SubjectsPage() {
                       <button
                         onClick={() => setDeleteConfirm(subject.id)}
                         id={`delete-subject-${subject.id}`}
-                        className="p-2 text-slate-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all"
+                        className="p-2 rounded-lg transition-all hover:text-red-500 hover:bg-red-500/10"
+                        style={{ color: 'var(--text-secondary)' }}
                         title="حذف"
                       >
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -282,17 +303,17 @@ export default function SubjectsPage() {
 
       {/* Delete Confirm Modal */}
       {deleteConfirm && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6 max-w-sm w-full shadow-2xl">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="border rounded-2xl p-6 max-w-sm w-full shadow-2xl" style={{ background: 'var(--bg-surface)', borderColor: 'var(--border)' }}>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center">
-                <svg className="w-5 h-5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center">
+                <svg className="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
               </div>
-              <h3 className="text-white font-semibold text-lg">تأكيد الحذف</h3>
+              <h3 className="font-semibold text-lg" style={{ color: 'var(--text-primary)' }}>تأكيد الحذف</h3>
             </div>
-            <p className="text-slate-300 text-sm mb-6">
+            <p className="text-sm mb-6" style={{ color: 'var(--text-secondary)' }}>
               هل تريد حذف هذه المادة؟ سيتم حذف جميع الملفات التعليمية المرتبطة بها تلقائيًا ولا يمكن التراجع عن هذا الإجراء.
             </p>
             <div className="flex gap-3">
@@ -305,7 +326,8 @@ export default function SubjectsPage() {
               </button>
               <button
                 onClick={() => setDeleteConfirm(null)}
-                className="flex-1 py-2.5 bg-slate-700 hover:bg-slate-600 text-slate-300 font-semibold rounded-xl transition-all duration-200"
+                className="flex-1 py-2.5 font-semibold rounded-xl transition-all duration-200"
+                style={{ background: 'var(--bg-elevated)', color: 'var(--text-secondary)' }}
               >
                 إلغاء
               </button>

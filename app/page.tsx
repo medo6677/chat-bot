@@ -1,13 +1,22 @@
 import StudentEntry from '@/app/SubjectCards'
+import ThemeToggle from '@/app/ThemeToggle'
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-linear-to-br from-slate-950 via-purple-950/30 to-slate-950">
+    <main
+      className="min-h-screen relative"
+      style={{ background: 'var(--bg-base)' }}
+    >
       {/* Background decorations */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl" />
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-900/10 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-900/5 rounded-full blur-3xl" />
+      </div>
+
+      {/* Theme Toggle Button — top left */}
+      <div className="fixed top-4 left-4 z-50">
+        <ThemeToggle />
       </div>
 
       <div className="relative flex flex-col items-center justify-center min-h-screen px-4 py-10">
@@ -29,8 +38,8 @@ export default function HomePage() {
             </svg>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-3 tracking-tight">ثينكي</h1>
-          <p className="text-base sm:text-lg text-slate-400 leading-relaxed">
+          <h1 className="text-4xl sm:text-5xl font-bold mb-3 tracking-tight" style={{ color: 'var(--text-primary)' }}>ثينكي</h1>
+          <p className="text-base sm:text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
             مساعدك الذكي للدراسة — يجيب على أسئلتك بناءً على محتوى المادة فقط
           </p>
         </div>
