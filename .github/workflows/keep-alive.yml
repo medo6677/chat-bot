@@ -1,0 +1,17 @@
+name: Supabase Keep-Alive Cron
+
+on:
+  schedule:
+    # Runs at 12:00 UTC every 2 days
+    - cron: '0 12 */2 * *'
+  workflow_dispatch:
+
+jobs:
+  ping-supabase:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send keep-alive query to Supabase
+        run: |
+          curl -s -f "https://vvjbyshndugnvuipgntm.supabase.co/rest/v1/settings?select=id&limit=1" \
+            -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ2amJ5c2huZHVnbnZ1aXBnbnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1OTgzOTQsImV4cCI6MjA5OTE3NDM5NH0.i3ZC6qy7KkrXwXcavrnNogagejaDeJT2TpF0B-6qk7A" \
+            -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ2amJ5c2huZHVnbnZ1aXBnbnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1OTgzOTQsImV4cCI6MjA5OTE3NDM5NH0.i3ZC6qy7KkrXwXcavrnNogagejaDeJT2TpF0B-6qk7A"
