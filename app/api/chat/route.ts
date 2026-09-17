@@ -19,7 +19,7 @@ const MAX_REQUESTS_PER_WINDOW = 20
  * - OpenRouter keys start with "sk-or-"
  */
 function detectProvider(apiKey: string): 'google' | 'groq' | 'openrouter' {
-  if (apiKey.startsWith('AIza')) return 'google'
+  if (apiKey.startsWith('AIza') || apiKey.startsWith('AQ.')) return 'google'
   if (apiKey.startsWith('gsk_')) return 'groq'
   return 'openrouter'
 }

@@ -12,11 +12,11 @@ interface Settings {
 const PROVIDER_MODELS = [
   {
     provider: 'Google Gemini',
-    models: ['gemini-2.5-flash', 'gemini-2.0-flash-exp'],
+    models: ['gemini-3.6-flash', 'gemini-2.5-flash'],
   },
   {
     provider: 'Groq',
-    models: ['llama-3.3-70b-versatile', 'mixtral-8x7b-32768'],
+    models: ['qwen/qwen3.8-27b', 'openai/gpt-oss-120b'],
   },
   {
     provider: 'OpenRouter',
